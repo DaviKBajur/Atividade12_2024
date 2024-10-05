@@ -156,36 +156,9 @@ void questao06() {
     printf("\n");
 }
 
-// Questão 07: Busca binária recursiva
-int buscaBinariaRecursiva(int S[], int inicio, int fim, int elemento) {
-    if (inicio > fim) return -1;
-    int meio = (inicio + fim) / 2;
-
-    if (S[meio] == elemento) return meio;
-    if (S[meio] > elemento) return buscaBinariaRecursiva(S, inicio, meio - 1, elemento);
-    return buscaBinariaRecursiva(S, meio + 1, fim, elemento);
-}
 
 void questao07() {
-    int n, elemento;
-    printf("Digite o tamanho do vetor: ");
-    scanf("%d", &n);
-
-    int S[n];
-    printf("Digite os elementos do vetor (em ordem crescente):\n");
-    for (int i = 0; i < n; i++) {
-        scanf("%d", &S[i]);
-    }
-
-    printf("Digite o elemento a ser buscado: ");
-    scanf("%d", &elemento);
-
-    int posicao = buscaBinariaRecursiva(S, 0, n - 1, elemento);
-    if (posicao != -1) {
-        printf("Elemento encontrado na posição %d\n", posicao);
-    } else {
-        printf("Elemento não encontrado.\n");
-    }
+    printf("\nEla é mais rapida pois em vez de buscar lendo de um em um, ela vai dividindo no meio a area de busca\n");
 }
 
 
@@ -201,7 +174,7 @@ int main(int argc, char ** argv) {
         printf("4 - Questão 04: Número de dígitos de um inteiro\n");
         printf("5 - Questão 05: Busca de elemento em um vetor\n");
         printf("6 - Questão 06: Ordenar vetor usando recursividade\n");
-        printf("7 - Questão 07: Busca binária recursiva\n");
+        printf("7 - Questão 07: Pesquisa busca binária recursiva\n");
         printf("0 - Sair\n");
         printf("Escolha uma opção: ");
         scanf("%d", &opcao);
