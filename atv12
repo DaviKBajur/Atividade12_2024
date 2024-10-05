@@ -1,0 +1,243 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define sucesso 0
+
+// Questão 01: Função recursiva para imprimir intervalo
+void imprimeIntervalo(int a, int b) {
+    if (a > b) {
+        printf("Erro: a é maior que b.\n");
+        return;
+    }
+    if (a == b) {
+        printf("%d\n", a);
+    } else {
+        printf("%d ", a);
+        imprimeIntervalo(a + 1, b);
+    }
+}
+
+void questao01() {
+    int a, b;
+    printf("Digite dois inteiros (a e b): ");
+    scanf("%d %d", &a, &b);
+    imprimeIntervalo(a, b);
+}
+
+// Questão 02: Máximo, Soma e Média de um vetor
+int maximo(int S[], int n) {
+    if (n == 1) return S[0];
+    int max = maximo(S, n - 1);
+    return (S[n - 1] > max) ? S[n - 1] : max;
+}
+
+int soma(int S[], int n) {
+    if (n == 0) return 0;
+    return S[n - 1] + soma(S, n - 1);
+}
+
+float media(int S[], int n) {
+    return (float)soma(S, n) / n;
+}
+
+void questao02() {
+    int n;
+    printf("Digite o tamanho do vetor: ");
+    scanf("%d", &n);
+
+    int S[n];
+    printf("Digite os elementos do vetor:\n");
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &S[i]);
+    }
+
+    printf("Máximo: %d\n", maximo(S, n));
+    printf("Soma: %d\n", soma(S, n));
+    printf("Média: %.2f\n", media(S, n));
+}
+
+// Questão 03: N-ésimo número de Fibonacci
+int fibonacci(int n) {
+    if (n <= 1) return n;
+    return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+void questao03() {
+    int n;
+    printf("Digite o valor de N: ");
+    scanf("%d", &n);
+
+    printf("Os primeiros %d termos da sequência de Fibonacci são:\n", n);
+    for (int i = 0; i < n; i++) {
+        printf("%d ", fibonacci(i));
+    }
+    printf("\n");
+}
+
+// Questão 04: Número de dígitos de um inteiro
+int numDigitos(int N) {
+    if (N < 10) return 1;
+    return 1 + numDigitos(N / 10);
+}
+
+void questao04() {
+    int N;
+    printf("Digite um número inteiro: ");
+    scanf("%d", &N);
+    printf("O número de dígitos de %d é: %d\n", N, numDigitos(N));
+}
+
+// Questão 05: Busca de elemento em um vetor
+int buscaRecursiva(int S[], int n, int elemento) {
+    if (n == 0) return -1;
+    if (S[n - 1] == elemento) return n - 1;
+    return buscaRecursiva(S, n - 1, elemento);
+}
+
+void questao05() {
+    int n, elemento;
+    printf("Digite o tamanho do vetor: ");
+    scanf("%d", &n);
+
+    int S[n];
+    printf("Digite os elementos do vetor:\n");
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &S[i]);
+    }
+
+    printf("Digite o elemento a ser buscado: ");
+    scanf("%d", &elemento);
+
+    int posicao = buscaRecursiva(S, n, elemento);
+    if (posicao != -1) {
+        printf("Elemento encontrado na posição %d\n", posicao);
+    } else {
+        printf("Elemento não encontrado.\n");
+    }
+}
+
+// Questão 06: Ordenar vetor usando recursividade
+void ordenarVetor(int S[], int n, int i) {
+    if (i == n - 1) return;
+    int posMenor = i;
+
+    for (int j = i + 1; j < n; j++) {
+        if (S[j] < S[posMenor]) {
+            posMenor = j;
+        }
+    }
+
+    if (posMenor != i) {
+        int temp = S[i];
+        S[i] = S[posMenor];
+        S[posMenor] = temp;
+    }
+
+    ordenarVetor(S, n, i + 1);
+}
+
+void questao06() {
+    int n;
+    printf("Digite o tamanho do vetor: ");
+    scanf("%d", &n);
+
+    int S[n];
+    printf("Digite os elementos do vetor:\n");
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &S[i]);
+    }
+
+    ordenarVetor(S, n, 0);
+
+    printf("Vetor ordenado:\n");
+    for (int i = 0; i < n; i++) {
+        printf("%d ", S[i]);
+    }
+    printf("\n");
+}
+
+// Questão 07: Busca binária recursiva
+int buscaBinariaRecursiva(int S[], int inicio, int fim, int elemento) {
+    if (inicio > fim) return -1;
+    int meio = (inicio + fim) / 2;
+
+    if (S[meio] == elemento) return meio;
+    if (S[meio] > elemento) return buscaBinariaRecursiva(S, inicio, meio - 1, elemento);
+    return buscaBinariaRecursiva(S, meio + 1, fim, elemento);
+}
+
+void questao07() {
+    int n, elemento;
+    printf("Digite o tamanho do vetor: ");
+    scanf("%d", &n);
+
+    int S[n];
+    printf("Digite os elementos do vetor (em ordem crescente):\n");
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &S[i]);
+    }
+
+    printf("Digite o elemento a ser buscado: ");
+    scanf("%d", &elemento);
+
+    int posicao = buscaBinariaRecursiva(S, 0, n - 1, elemento);
+    if (posicao != -1) {
+        printf("Elemento encontrado na posição %d\n", posicao);
+    } else {
+        printf("Elemento não encontrado.\n");
+    }
+}
+
+
+
+int main(int argc, char ** argv) {
+    int opcao;
+
+    do {
+        printf("\nMenu:\n");
+        printf("1 - Questão 01: Imprime intervalo entre dois inteiros\n");
+        printf("2 - Questão 02: Máximo, Soma e Média de um vetor\n");
+        printf("3 - Questão 03: N-ésimo termo de Fibonacci\n");
+        printf("4 - Questão 04: Número de dígitos de um inteiro\n");
+        printf("5 - Questão 05: Busca de elemento em um vetor\n");
+        printf("6 - Questão 06: Ordenar vetor usando recursividade\n");
+        printf("7 - Questão 07: Busca binária recursiva\n");
+        printf("0 - Sair\n");
+        printf("Escolha uma opção: ");
+        scanf("%d", &opcao);
+
+        switch (opcao) {
+            case 1: 
+                questao01(); 
+                break;
+            case 2: 
+                questao02(); 
+                break;
+            case 3: 
+                questao03(); 
+                break;
+            case 4: 
+                questao04(); 
+                break;
+            case 5:     
+                questao05(); 
+                break;
+            case 6: 
+                questao06(); 
+                break;
+            case 7: 
+                questao07(); 
+                break;
+            case 0: 
+                printf("Saindo...\n"); 
+                break;
+            default: 
+                printf("Opção inválida!\n"); 
+                break;
+        }
+
+    } while (opcao != 0);
+
+    return sucesso;
+}
+
